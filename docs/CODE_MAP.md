@@ -4,8 +4,8 @@
 
 | Task | Files |
 |---|---|
-| Start localhost / check build freshness | `start.py`, `rojgaar/launcher.py` |
-| Change data, model or browser paths | `rojgaar/paths.py` |
+| Start localhost / check build freshness | `start.py`, `job_intel/launcher.py` |
+| Change data, model or browser paths | `job_intel/paths.py` |
 | Add or edit employer inventories | `backend/config/sources.py`, `backend/config/career_expansion.py` (26 October batch) |
 | Edit feeds from the 100-company target list | `backend/config/career_targets_20261030.py`; audit outcomes in `docs/catalog/CAREER_TARGETS_20261030.json` and `CAREER_EXPANSION_20261030.md` |
 | Find and register more ATS feeds by company name | `scripts/career/discover_sources.py`; candidates in `docs/catalog/CAREER_CANDIDATES_20261102.json`; approved rows land in `backend/config/career_discovered.py` (see `docs/catalog/CAREER_DISCOVERY.md`) |

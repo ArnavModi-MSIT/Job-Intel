@@ -1,6 +1,6 @@
-# Rozgaar
+# Job Intel
 
-Rozgaar is a localhost workspace for collecting job listings and exporting JSON batches for manual shortlisting. Built with Python, FastAPI, React, SQLite and Playwright.
+Job Intel is a localhost workspace for collecting job listings and exporting JSON batches for manual shortlisting. Built with Python, FastAPI, React, SQLite and Playwright.
 
 ## Features
 
@@ -23,11 +23,11 @@ Requires Python **3.10**, Node.js **22** with npm, and Google Chrome. Dependenci
 
 The Info Edge career source additionally requires **PowerShell 7** (`pwsh` on PATH, a full portable distribution in `runtime/tools/powershell/`, or the standard `Program Files/PowerShell/7` installation). It uses the native Windows HTTP/2 client for Zwayam's public API; no account or browser cookies are needed. If PowerShell 7 is missing, that source reports a failure independently of other collectors. See [Microsoft's installation guide](https://learn.microsoft.com/powershell/scripting/install/installing-powershell-on-windows).
 
-Clone Rozgaar and set up the project in PowerShell:
+Clone Job Intel and set up the project in PowerShell:
 
 ```powershell
-git clone https://github.com/ArnavModi-MSIT/Rozgaar.git
-Set-Location Rozgaar
+git clone https://github.com/ArnavModi-MSIT/Job-Intel.git
+Set-Location Job-Intel
 py -3.10 -m venv runtime/python
 & '.\runtime\python\Scripts\python.exe' -m pip install -r requirements.txt
 Push-Location frontend
@@ -36,7 +36,7 @@ npm run build
 Pop-Location
 ```
 
-Then double-click **Start Rozgaar.cmd**, or run:
+Then double-click **Start Job Intel.cmd**, or run:
 
 ```powershell
 & '.\runtime\python\Scripts\python.exe' start.py
@@ -78,7 +78,7 @@ Use the exact stored filename. `--latest` and `--input path/to/export.json` are 
 | `backend/config/` | Sources, matching rules and display names |
 | `frontend/src/` | React interface |
 | `url_reader/` | Browser adapters, checkpoint/history storage and watchdog |
-| `rojgaar/` | Shared paths and localhost launcher |
+| `job_intel/` | Shared paths and localhost launcher |
 | `scripts/` | Checks, audits and maintenance tools |
 | `tests/` | Synthetic unit/API tests and intercepted browser fixtures |
 | `examples/` | Synthetic matcher input |

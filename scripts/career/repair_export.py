@@ -23,7 +23,7 @@ from backend.fetchers import icims
 from bs4 import BeautifulSoup
 from backend.core.experience import extract_min_experience, extract_preferred_experience
 from backend.core.skills import extract_skills
-from rojgaar.paths import CAREER_DB, RUNTIME
+from job_intel.paths import CAREER_DB, RUNTIME
 
 _listing_lock = Lock()
 

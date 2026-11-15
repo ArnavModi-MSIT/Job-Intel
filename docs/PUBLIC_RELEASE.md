@@ -22,4 +22,4 @@ The detailed scan is saved privately as `runtime/artifacts/public-release-audit.
 
 ## Publication decisions
 
-The repository uses the MIT license, selected by the owner. See the root `LICENSE` file. Third-party dependencies retain their own licenses. The owner subsequently authorized publication to `ArnavModi-MSIT/Rozgaar`. Existing Git history is preserved; local private archives and runtime data are excluded.
+The repository uses the MIT license, selected by the owner. See the root `LICENSE` file. Third-party dependencies retain their own licenses. The owner subsequently authorized publication to `ArnavModi-MSIT/Job-Intel`. Existing Git history is preserved; local private archives and runtime data are excluded.

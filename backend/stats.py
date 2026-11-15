@@ -17,7 +17,7 @@ from pathlib import Path
 import backend.config as config
 from backend.core.source_health import summarize
 
-from rojgaar.paths import CAREER_DB
+from job_intel.paths import CAREER_DB
 DB_PATH = str(CAREER_DB)
 
 if not Path(DB_PATH).exists():

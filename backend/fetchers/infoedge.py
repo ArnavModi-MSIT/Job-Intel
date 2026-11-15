@@ -10,7 +10,7 @@ import threading
 import time
 from urllib.parse import quote
 
-from rojgaar.paths import ROOT
+from job_intel.paths import ROOT
 from .result import CollectionResult
 from .standard import strip_html
 

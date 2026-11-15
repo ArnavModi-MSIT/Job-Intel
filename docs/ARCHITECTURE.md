@@ -1,6 +1,6 @@
 # Architecture
 
-Rozgaar is a local, single-user application. The launcher serves the React build and FastAPI on `127.0.0.1:8000`. Startup does not collect jobs. Shared filesystem locations are defined in `rojgaar/paths.py`.
+Job Intel is a local, single-user application. The launcher serves the React build and FastAPI on `127.0.0.1:8000`. Startup does not collect jobs. Shared filesystem locations are defined in `job_intel/paths.py`.
 
 ## Career pipeline
 

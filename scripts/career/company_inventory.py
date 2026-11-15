@@ -6,7 +6,7 @@ from collections import defaultdict
 from datetime import datetime, timedelta, timezone
 
 import backend.config as config
-from rojgaar.paths import ROOT
+from job_intel.paths import ROOT
 
 GROUPS = ('GREENHOUSE', 'LEVER', 'ASHBY', 'ORACLE', 'GOOGLE_CAREERS', 'PHENOM', 'WORKDAY',
           'EIGHTFOLD', 'SUCCESSFACTORS', 'ICIMS', 'SMARTRECRUITERS', 'WORKABLE', 'AINTERVIEWS',

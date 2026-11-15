@@ -6,7 +6,7 @@ import backend.config as config
 from backend.config.career_targets_20261030 import SOURCES, INDIA_BOARDS
 from backend.fetchers import employer_portals, standard
 from scripts.career.company_inventory import inventory
-from rojgaar.paths import ROOT
+from job_intel.paths import ROOT
 
 
 class TargetExpansionTests(unittest.TestCase):

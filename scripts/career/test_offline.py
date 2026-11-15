@@ -5,7 +5,7 @@ import sys
 import unittest
 from unittest.mock import patch
 
-from rojgaar.paths import ROOT
+from job_intel.paths import ROOT
 
 
 def main():

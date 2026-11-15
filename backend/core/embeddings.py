@@ -12,7 +12,7 @@ from pathlib import Path
 from sentence_transformers import SentenceTransformer
 
 _model = None
-from rojgaar.paths import MODEL_DIR
+from job_intel.paths import MODEL_DIR
 
 
 def model_cache_identity():

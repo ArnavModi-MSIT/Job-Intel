@@ -174,7 +174,7 @@ def embed_jobs_incremental(jobs_df, cache=None):
     return embeddings_tensor, cache, len(to_embed_idx)
 
 
-from rojgaar.paths import CAREER_DATA
+from job_intel.paths import CAREER_DATA
 DEFAULT_EMBEDDINGS_CACHE_PATH = str(CAREER_DATA / "job_embeddings_cache.pt")
 
 

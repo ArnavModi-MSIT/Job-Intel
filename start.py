@@ -1,5 +1,5 @@
 """Open the modular localhost platform."""
-from rojgaar.launcher import main
+from job_intel.launcher import main
 
 if __name__ == "__main__":
     raise SystemExit(main())

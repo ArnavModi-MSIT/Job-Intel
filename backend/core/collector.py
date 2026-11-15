@@ -12,7 +12,7 @@ from backend.fetchers import career_html, tredence, myntra, makemytrip, ubs, pwc
 from backend.fetchers import qualcomm_students, morgan_stanley_students, unitedhealthgroup, zepto, bloomberg, linkedin_company, netflix, workday_india, automattic, zerodha, amd, booking, target, tesco, juspay, mediatek, millennium, ainterviews, amazon, apple, atlassian, bank_of_america, barclays, blackrock, deloitte, deshaw, deutsche_bank, eightfold, flipkart, goldman_sachs, google_careers, icims, indiamart, intuit, mastercard_workday, meta, oracle, paypal, phenom, quadeye, rippling, smartrecruiters, standard, successfactors, swiggy, tower_research, uber, workable, workday, zs
 from backend.fetchers.result import CollectionResult
 from backend.core.storage import load_known_job_locations
-from rojgaar.paths import CAREER_DB
+from job_intel.paths import CAREER_DB
 from backend.fetchers import ibm
 from backend.fetchers import infoedge
 from backend.fetchers import joshtechnologygroup

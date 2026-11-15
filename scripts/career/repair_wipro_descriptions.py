@@ -18,7 +18,7 @@ from urllib.parse import urlparse
 
 from backend.core.storage import update_descriptions
 from backend.fetchers.successfactors import _BOILERPLATE_PREFIXES, fetch_job_description
-from rojgaar.paths import CAREER_DB
+from job_intel.paths import CAREER_DB
 
 HOST = "careers.wipro.com"
 
