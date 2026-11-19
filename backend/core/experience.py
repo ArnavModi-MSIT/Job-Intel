@@ -172,6 +172,23 @@ def _bare_experience_years(text):
     return [_year_value(match.group(1))] if match else []
 
 
+def _leading_experience_years(section):
+    """A value written inline after an Experience label ("Experience: 2-5 years
+    Qualification: ...", "experience: 8-12 years in application development"),
+    where the numeric-only first-line check cannot see it."""
+    first_line = section.lstrip(" \t\r\n:-\u2022*").split("\n", 1)[0]
+    match = _YEAR_NUM_RE.match(first_line)
+    if not match or re.match(r"\s*(?:in\s+business|old|ago|contract|duration|degree|course|program|programme)\b", first_line[match.end():], re.I):
+        return []
+    # Judge preference on this sentence only, within 150 characters of the
+    # number: a collapsed one-line description may say "preferred" much later
+    # about something else.
+    clause = re.split(r"(?<=[.!?])\s", first_line[:match.end() + 150], maxsplit=1)[0]
+    if _PREFERRED_SIGNAL_RE.search(clause):
+        return []
+    return [_year_value(match.group(1))]
+
+
 # Labelled numbers with the unit in the label ("Years of Experience: 5 - 10"),
 # which the N-years pattern cannot see because no unit follows the number.
 # Spacing inside the range is horizontal whitespace of any kind: IBM writes
@@ -183,7 +200,8 @@ _LABELLED_YEARS_RE = re.compile(
 
 
 def _plain_experience_text(text):
-    text = unescape(text or "")
+    # Non-breaking spaces ("Experience :&nbsp;0 Years") must act as plain spaces.
+    text = unescape(text or "").replace("\xa0", " ")
     text = re.sub(r"</?(?:p|div|li|h[1-6]|br)\b[^>]*>", "\n", text, flags=re.I)
     text = re.sub(r"<[^>]+>", " ", text)
     return _LABELLED_YEARS_RE.sub(lambda m: f"{m.group(1)}{m.group(2)}{m.group(3).strip()} years", text)
@@ -260,6 +278,8 @@ def extract_min_experience(text):
             first_line = section.strip().splitlines()[0] if section.strip() else ""
             if 'experience' in name and not _PREFERRED_SIGNAL_RE.search(first_line):
                 years.extend(_bare_experience_years(section))
+            if 'experience' in name:
+                years.extend(_leading_experience_years(section))
 
             legacy=_extract_min_experience_legacy(section)
 

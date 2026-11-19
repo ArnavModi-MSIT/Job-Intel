@@ -31,6 +31,14 @@ COUNTRIES = [
     "czech republic", "thailand", "norway", "vietnam", "peru", "greece",
     "türkiye", "turkiye", "turkey", "republic of korea",
     "romania", "hong kong", "taiwan",
+    # Seen in Workday/Phenom feeds with no other country signal ("Argentina -
+    # Buenos Aires, Argentina", "Seoul, Korea, Republic of"); "Unknown" would
+    # have kept these as possible India postings.
+    "argentina", "korea", "uruguay", "ukraine", "russia", "nigeria", "pakistan",
+    "bangladesh", "sri lanka", "nepal", "qatar", "kuwait", "bahrain", "luxembourg",
+    "slovakia", "bulgaria", "lithuania", "latvia", "estonia", "croatia", "slovenia",
+    "ecuador", "venezuela", "panama", "puerto rico", "dominican republic", "ghana",
+    "ethiopia", "tanzania", "uganda", "jamaica",
 ]
 
 _COUNTRY_DISPLAY = {
@@ -39,7 +47,7 @@ _COUNTRY_DISPLAY = {
     "uae": "United Arab Emirates",
     "ind": "India",
     "türkiye": "Türkiye", "turkiye": "Türkiye", "turkey": "Türkiye",
-    "republic of korea": "South Korea", "czech republic": "Czechia",
+    "republic of korea": "South Korea", "korea": "South Korea", "czech republic": "Czechia",
 }
 
 # US state abbreviations — needed because many US postings (particularly

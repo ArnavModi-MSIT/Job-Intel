@@ -8,8 +8,8 @@ from backend.fetchers import standard
 
 class CareerExpansionTests(unittest.TestCase):
     def test_new_sources_are_unique_registered_and_named(self):
-        self.assertEqual(len(SOURCES), 50)
-        self.assertEqual(len({row['key'].casefold() for row in SOURCES}), 50)
+        self.assertEqual(len(SOURCES), 49)
+        self.assertEqual(len({row['key'].casefold() for row in SOURCES}), 49)
         for row in SOURCES:
             with self.subTest(company=row['key']):
                 group = getattr(config, row['group'].upper())

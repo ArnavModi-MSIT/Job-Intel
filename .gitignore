@@ -35,3 +35,14 @@ career-pages-*.json
 Thumbs.db
 .DS_Store
 /minor project/
+
+# Claude Code personal settings
+/.claude/settings.local.json
+
+# Generated report, paper and slides; resumes and other personal documents
+/Claude outputs/
+*.doc
+*.odt
+*.rtf
+*.pptx
+saved_resume.json

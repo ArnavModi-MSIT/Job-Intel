@@ -1,12 +1,12 @@
 # Career-page company inventory
 
-Updated: 09 November 2026.
+Updated: 19 November 2026.
 
-**378 company/display-name entries** configured in the career-page pipeline. Multiple boards or student feeds for the same display name share one row; separate divisions may retain their own display names.
+**399 company/display-name entries** configured in the career-page pipeline. Multiple boards or student feeds for the same display name share one row; separate divisions may retain their own display names.
 
 This is a configuration inventory, not a live health check, a count of companies with current jobs, or a guarantee of complete descriptions. It excludes the separate URL-reader pipeline.
 
-Compiled from `backend/config/sources.py`, `backend/config/career_expansion.py`, `backend/config/career_targets_20261030.py`, `backend/config/career_discovered.py`, `backend/config/career_browser_20261102.py`, `backend/config/display.py`, and every registered collector in `backend/core/collector.py`.
+Compiled from `backend/config/sources.py`, `backend/config/career_expansion.py`, `backend/config/career_targets_20261030.py`, `backend/config/career_discovered.py`, `backend/config/career_browser_20261102.py`, `backend/config/career_browser_20261107.py`, `backend/config/career_sources_20261119.py`, `backend/config/display.py`, and every registered collector in `backend/core/collector.py`.
 
 Regenerate offline after source changes: `runtime/python/Scripts/python.exe -m scripts.career.company_inventory`. This command does not collect jobs or change the database.
 
@@ -51,6 +51,7 @@ The older `COMPANY_SOURCES.json` is a curated 75-company audit input, not the fu
 | Autodesk | `autodesk` | `workday` |
 | Automattic | `automattic` | `automattic (dedicated adapter)` |
 | Axtria | `axtria` | `axtria (dedicated adapter)` |
+| Bain & Company | `bain` | `employer_portals / avature` |
 | Baker Hughes | `bakerhughes` | `workday_india` |
 | Bank Of America | `bank_of_america` | `bank_of_america (dedicated adapter)` |
 | Barclays | `barclays` | `barclays (dedicated adapter)` |
@@ -76,6 +77,7 @@ The older `COMPANY_SOURCES.json` is a curated 75-company audit input, not the fu
 | Cadence Design Systems | `cadence` | `workday_india` |
 | Capgemini | `capgemini` | `employer_portals / capgemini` |
 | Capital One | `capitalone` | `workday_india` |
+| Carelon Global Solutions | `carelon` | `workday_india` |
 | Cars24 | `cars24` | `smartrecruiters` |
 | Cashfree Payments | `cashfree` | `employer_portals / kula` |
 | Celigo | `celigo` | `greenhouse` |
@@ -129,10 +131,10 @@ The older `COMPANY_SOURCES.json` is a curated 75-company audit input, not the fu
 | Epsilon | `epsilon` | `employer_portals / jibe` |
 | Ericsson | `ericsson` | `eightfold` |
 | Evalueserve | `evalueserve` | `employer_portals / darwinbox` |
-| EXL | `exl` | `oracle` |
 | Experian India | `Experian` | `smartrecruiters` |
 | Extreme Networks | `extremenetworks` | `lever` |
 | ExxonMobil | `exxonmobil` | `employer_portals / successfactors` |
+| EY | `ey` | `successfactors` |
 | F5 | `f5` | `workday_india` |
 | FactSet | `factset` | `workday_india` |
 | Fampay | `fampay` | `lever` |
@@ -172,6 +174,7 @@ The older `COMPANY_SOURCES.json` is a curated 75-company audit input, not the fu
 | HackerRank | `hackerrank` | `greenhouse` |
 | Harness | `harnessinc` | `greenhouse` |
 | HCLTech | `hcltech` | `successfactors` |
+| Headout | `headout` | `ashby` |
 | Hevo Data | `hevodata` | `lever` |
 | Hewlett Packard Enterprise | `hpe` | `workday_india` |
 | Hexaware | `hexaware` | `employer_portals / oracle` |
@@ -181,9 +184,11 @@ The older `COMPANY_SOURCES.json` is a curated 75-company audit input, not the fu
 | HSBC | `hsbc` | `hsbc (dedicated adapter)` |
 | IBM | `ibm` | `ibm (dedicated adapter)` |
 | Icertis | `icertis` | `employer_portals / oracle` |
+| ICF | `icf` | `workday_india` |
 | IMC | `imc` | `greenhouse` |
 | IndiaMART | `indiamart` | `indiamart` |
 | Info Edge | `infoedge` | `infoedge (dedicated adapter)` |
+| Inizio | `inizio` | `greenhouse` |
 | InMobi | `inmobi` | `greenhouse` |
 | Innovaccer | `innovaccer-analytics` | `workable` |
 | Intel | `intel` | `workday` |
@@ -192,13 +197,16 @@ The older `COMPANY_SOURCES.json` is a curated 75-company audit input, not the fu
 | Invesco | `invesco` | `workday_india` |
 | ION Group | `ion` | `lever` |
 | IQVIA | `iqvia` | `workday_india` |
+| ixigo | `ixigo` | `smartrecruiters` |
 | JFrog | `jfrog` | `greenhouse` |
+| Johnson & Johnson | `jnj` | `workday_india` |
 | Josh Technology Group | `joshtechnologygroup` | `joshtechnologygroup (dedicated adapter)` |
 | JPMorgan Chase | `jpmc` | `oracle` |
 | Jumio | `jumio` | `greenhouse` |
 | Jump Trading | `jumptrading` | `greenhouse` |
 | Jupiter Money | `jupiter` | `employer_portals / keka` |
 | Juspay | `juspay` | `juspay (dedicated adapter)` |
+| Kimberly-Clark | `kimberlyclark` | `workday_india` |
 | Kissht | `kissht` | `employer_portals / kissht` |
 | KLA | `kla` | `workday_india` |
 | Kore.ai | `koreai` | `smartrecruiters` |
@@ -224,6 +232,7 @@ The older `COMPANY_SOURCES.json` is a curated 75-company audit input, not the fu
 | Medtronic | `medtronic` | `workday` |
 | Meesho | `meesho` | `lever` |
 | Meta | `meta` | `meta (dedicated adapter)` |
+| MetLife | `metlife` | `employer_portals / avature` |
 | Microchip Technology | `microchip` | `workday_india` |
 | Micron Technology | `micron` | `micron (dedicated adapter)` |
 | Microsoft | `microsoft` | `eightfold` |
@@ -241,6 +250,7 @@ The older `COMPANY_SOURCES.json` is a curated 75-company audit input, not the fu
 | Narvar | `narvar` | `greenhouse` |
 | Nasdaq | `nasdaq` | `workday_india` |
 | NatWest Group | `natwest` | `workday_india` |
+| Navan | `tripactions` | `greenhouse` |
 | Navi | `navi` | `ashby` |
 | NCR Voyix | `ncrvoyix` | `workday` |
 | NetApp | `netapp` | `netapp (dedicated adapter)` |
@@ -260,6 +270,7 @@ The older `COMPANY_SOURCES.json` is a curated 75-company audit input, not the fu
 | Northern Trust | `northerntrust` | `workday_india` |
 | Notion | `notion` | `ashby` |
 | Novartis | `novartis` | `workday_india` |
+| NTT DATA | `nttdata` | `successfactors` |
 | Nutanix | `nutanix` | `nutanix (dedicated adapter)` |
 | NVIDIA | `nvidia` | `workday` |
 | NXP Semiconductors | `nxp` | `workday_india` |
@@ -279,6 +290,7 @@ The older `COMPANY_SOURCES.json` is a curated 75-company audit input, not the fu
 | PharmEasy | `pharmeasy` | `employer_portals / darwinbox` |
 | Philips | `philips` | `workday_india` |
 | PhonePe | `PHONEPELIMITED` | `smartrecruiters` |
+| Pitney Bowes | `pitneybowes` | `workday_india` |
 | Pocket FM | `pocketfm` | `lever` |
 | Portcast | `portcast` | `lever` |
 | Porter | `porter` | `employer_portals / darwinbox` |
@@ -286,15 +298,18 @@ The older `COMPANY_SOURCES.json` is a curated 75-company audit input, not the fu
 | PromptQL (Hasura) | `hasura` | `employer_portals / gem` |
 | Proofpoint | `proofpoint` | `workday_india` |
 | Prudential Financial | `prudential` | `workday_india` |
+| PTC | `ptc` | `workday_india` |
 | Publicis Sapient | `publicissapient` | `publicissapient (dedicated adapter)` |
 | PubMatic | `pubmatic` | `greenhouse` |
 | Pure Storage | `purestorage` | `greenhouse` |
+| PVH | `pvh` | `workday_india` |
 | PwC India | `pwc` | `pwc (dedicated adapter)` |
 | Q2 | `q2ebanking` | `workday_india` |
 | Qlik | `qlik` | `employer_portals / pcsx` |
 | Quadeye | `quadeye` | `quadeye (dedicated adapter)` |
 | Quantiphi | `quantiphi` | `workday_india` |
 | Qube Research & Technologies | `quberesearchandtechnologies` | `greenhouse` |
+| R1 RCM | `r1rcm` | `workday_india` |
 | Razorpay | `razorpaysoftwareprivatelimited` | `greenhouse` |
 | Red Hat | `redhat` | `workday_india` |
 | Renesas Electronics | `RenesasElectronics` | `smartrecruiters` |
@@ -303,6 +318,7 @@ The older `COMPANY_SOURCES.json` is a curated 75-company audit input, not the fu
 | Rocketlane | `rocketlane` | `employer_portals / kula` |
 | Rockwell Automation | `rockwell` | `workday_india` |
 | Roku | `roku` | `greenhouse` |
+| RSM | `rsm` | `workday_india` |
 | Rubrik | `rubrik` | `greenhouse` |
 | S&P Global | `spglobal` | `icims` |
 | Sabre | `sabre` | `workday_india` |
@@ -320,6 +336,7 @@ The older `COMPANY_SOURCES.json` is a curated 75-company audit input, not the fu
 | Sigmoid Analytics | `sigmoid` | `greenhouse` |
 | Signzy | `signzy` | `employer_portals / keka` |
 | Silicon Labs | `silabs` | `workday_india` |
+| Simpplr | `simpplr` | `greenhouse` |
 | SingleStore | `singlestore` | `greenhouse` |
 | Slice | `slice` | `employer_portals / kula` |
 | Smarsh | `smarsh` | `lever` |
@@ -333,7 +350,9 @@ The older `COMPANY_SOURCES.json` is a curated 75-company audit input, not the fu
 | Starburst | `starburst` | `greenhouse` |
 | State Street | `statestreet` | `workday_india` |
 | Stripe | `stripe` | `greenhouse` |
+| Stryker | `stryker` | `workday_india` |
 | Sumo Logic | `sumologic` | `greenhouse` |
+| Sun Life | `sunlife` | `workday_india` |
 | Swiggy | `swiggy` | `swiggy (dedicated adapter)` |
 | Swiss Re | `swissre` | `swissre (dedicated adapter)` |
 | Synopsys | `synopsys` | `employer_portals / talentbrew` |
@@ -368,6 +387,7 @@ The older `COMPANY_SOURCES.json` is a curated 75-company audit input, not the fu
 | Urban Company | `urbancompany` | `employer_portals / urbancompany` |
 | Vanguard | `vanguard` | `workday_india` |
 | Veeva Systems | `veeva` | `lever` |
+| Veradigm | `veradigm` | `workday_india` |
 | Vercel | `vercel` | `greenhouse` |
 | Visa | `visa` | `workday`, `workday_students` |
 | Vodafone Idea | `vodafoneidea` | `successfactors` |
@@ -387,6 +407,7 @@ The older `COMPANY_SOURCES.json` is a curated 75-company audit input, not the fu
 | Zepto | `zepto` | `zepto (dedicated adapter)` |
 | Zerodha | `zerodha` | `zerodha (dedicated adapter)` |
 | Zeta | `zeta` | `lever` |
+| Zinnia | `zinnia` | `greenhouse` |
 | Zoom | `zoom` | `workday_india` |
 | ZoomInfo | `zoominfo` | `greenhouse` |
 | ZS Associates | `zs` | `zs (dedicated adapter)` |
@@ -399,6 +420,7 @@ Excluded from the active count and collection. Existing saved records and export
 
 | Company | Source | Reason |
 |---|---|---|
+| EXL | [exl](https://fa-ewjt-saasfaprod1.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2/jobs) | Removed 19 November 2026: the stored postings are mostly operations, credit-control and non-technical roles with little fit for data, analytics or software entry roles. |
 | Expedia Group | [expedia](https://careers.expediagroup.com/jobs/?filter%5Bcountry%5D=India) | Disabled 27 October 2026: HTTP 403; earlier HTTP 429 rate limiting. |
 | Hudson River Trading | [hrt](https://www.hudsonrivertrading.com/careers/?locations=mumbai%2C) | Disabled 27 October 2026: HTTP 403 access challenge. |
 | Qualcomm | [qualcomm](https://careers.qualcomm.com/careers?location=India) | Disabled 8 November 2026: HTTP 405 from AWS WAF human verification (CAPTCHA) on /api/pcsx/search; covers the main India feed and the Intern-only qualcomm_students collector. |

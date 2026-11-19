@@ -212,12 +212,8 @@ SOURCES = [{'key': '6sense',
   'name': 'Zendesk',
   'group': 'workday_india',
   'career_url': 'https://zendesk.wd1.myworkdayjobs.com/Zendesk',
-  'config': {'tenant': 'zendesk', 'wd_server': 'wd1', 'site': 'Zendesk', 'verify_detail_country': True}},
- {'key': 'exl',
-  'name': 'EXL',
-  'group': 'oracle',
-  'career_url': 'https://fa-ewjt-saasfaprod1.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2/jobs',
-  'config': {'base_url': 'https://fa-ewjt-saasfaprod1.fa.ocs.oraclecloud.com', 'site': 'CX_2'}}]
+  'config': {'tenant': 'zendesk', 'wd_server': 'wd1', 'site': 'Zendesk', 'verify_detail_country': True}}]
+# EXL removed 19 November 2026: see DISABLED_CAREER_SOURCES (operations roles, little data/software fit).
 
 INDIA_BOARDS = {row["key"] for row in SOURCES if row["group"] in {"greenhouse", "lever", "ashby"}}
 

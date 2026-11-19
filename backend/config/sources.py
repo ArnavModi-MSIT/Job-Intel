@@ -617,11 +617,14 @@ from .career_browser_20261102 import register as _register_browser
 _register_browser(globals())
 from .career_browser_20261107 import register as _register_browser_1107
 _register_browser_1107(globals())
+from .career_sources_20261119 import register as _register_1119
+_register_1119(globals())
 
 
 # Retained for documentation; these sources are not registered collectors.
 DISABLED_CAREER_SOURCES = {
     "hrt": {"name": "Hudson River Trading", "url": "https://www.hudsonrivertrading.com/careers/?locations=mumbai%2C", "reason": "Disabled 27 October 2026: HTTP 403 access challenge."},
     "qualcomm": {"name": "Qualcomm", "url": "https://careers.qualcomm.com/careers?location=India", "reason": "Disabled 8 November 2026: HTTP 405 from AWS WAF human verification (CAPTCHA) on /api/pcsx/search; covers the main India feed and the Intern-only qualcomm_students collector."},
+    "exl": {"name": "EXL", "url": "https://fa-ewjt-saasfaprod1.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_2/jobs", "reason": "Removed 19 November 2026: the stored postings are mostly operations, credit-control and non-technical roles with little fit for data, analytics or software entry roles."},
     "expedia": {"name": "Expedia Group", "url": "https://careers.expediagroup.com/jobs/?filter%5Bcountry%5D=India", "reason": "Disabled 27 October 2026: HTTP 403; earlier HTTP 429 rate limiting."},
 }

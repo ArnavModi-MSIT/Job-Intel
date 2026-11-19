@@ -191,7 +191,10 @@ def fetch_successfactors(cfg, deadline=None):
 
     startrow = 0  # advanced by the rows actually served: tenants differ (7, 25 or 100 per page)
     total = None
-    for page in range(MAX_PAGES):
+    # Large tenants (EY, NTT DATA) list thousands of India postings, newest
+    # first; a per-tenant cap keeps time for their descriptions.
+    max_pages = min(cfg.get("max_pages", MAX_PAGES), MAX_PAGES)
+    for page in range(max_pages):
         if deadline is not None and time.monotonic() >= deadline:
             break
         extra = {key: cfg[key] for key in ("path", "extra_query") if cfg.get(key)}
@@ -232,9 +235,9 @@ def fetch_successfactors(cfg, deadline=None):
         # the cap, not the data, is what stopped us. Logged loudly so a
         # truncated result is never mistaken for a complete one.
         log.warning(
-            "successfactors %s: stopped at the MAX_PAGES cap (%d pages, %d postings) — "
+            "successfactors %s: stopped at the page cap (%d pages, %d postings) — "
             "results are TRUNCATED, this tenant has more postings than were fetched",
-            cfg["company"], MAX_PAGES, len(jobs),
+            cfg["company"], max_pages, len(jobs),
         )
 
     if cfg.get("fetch_details") and jobs and not (deadline is not None and time.monotonic() >= deadline):
@@ -287,6 +290,15 @@ def _rmk_location(record, style=None):
         countries2 = record.get("jobLocationCountry") or []
         country = countries2[0] if countries2 else ""
     return ", ".join(p for p in (city, country) if p)
+
+
+def _detail_priority(title):
+    """0 = target-role or fresher/intern title, 1 = not senior-titled, 2 = senior-titled."""
+    from backend.config.matching import EXCLUDE_SENIOR, INCLUDE, TARGET_ROLE_RE
+    if (TARGET_ROLE_RE.search(title or "") or INCLUDE.search(title or "")
+            or re.search(r"\b(campus|beginner|fresher|graduate|trainee)\b", title or "", re.I)):
+        return 0
+    return 2 if EXCLUDE_SENIOR.search(title or "") else 1
 
 
 def fetch_successfactors_rmk(cfg, deadline=None):
@@ -377,8 +389,12 @@ def fetch_successfactors_rmk(cfg, deadline=None):
             else:
                 skipped.append(job)
             return job
+        # The shared deadline can end before every description is fetched, so
+        # target-role and entry-capable postings go first and senior-titled
+        # ones last. enrich() mutates each job in place; listing order is kept.
+        ordered = sorted(jobs, key=lambda job: _detail_priority(job["title"]))
         with ThreadPoolExecutor(max_workers=2) as pool:
-            jobs = list(pool.map(enrich, jobs))
+            list(pool.map(enrich, ordered))
         if skipped:
             # These postings are saved WITHOUT a description; say so instead of
             # reporting a complete run.

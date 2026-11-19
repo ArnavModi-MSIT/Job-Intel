@@ -25,26 +25,48 @@ PER_PAGE = 50
 MAX_PAGES = 200
 
 
+# MetLife writes the id in the path (/JobDetail/Assistant-Manager/21145), Macquarie as ?jobId=.
+_PATH_ID_RE = re.compile(r"/(?:JobDetail|FolderDetail)/[^/?#]+/(\d+)/?$")  # Bain: FolderDetail
+
+
+def _job_id(url):
+    ids = parse_qs(urlsplit(url).query).get("jobId")
+    if ids:
+        return ids[0]
+    match = _PATH_ID_RE.search(urlsplit(url).path)
+    return match.group(1) if match else ""
+
+
+def _listing_ids(html):
+    return set(re.findall(r"jobId=(\d+)", html)) | set(re.findall(r"/(?:JobDetail|FolderDetail)/[^/?#\"']+/(\d+)", html))
+
+
 def _location(text):
     """Avature shows office labels such as "Gurugram Office"; keep anchored Indian cities only."""
     text = re.sub(r"\s+office\s*$", "", (text or "").strip(), flags=re.I)
-    return _expansion_location(text)
+    place = _expansion_location(text)
+    if place or "," not in text:
+        return place
+    # Multi-office rows ("Kuala Lumpur, New Delhi", "Bengaluru, Mumbai, New Delhi"):
+    # keep the Indian offices only, never the foreign ones.
+    places = [_expansion_location(part.strip()) for part in text.split(",")]
+    return "; ".join(dict.fromkeys(place for place in places if place))
 
 
 def parse_results(html, host):
     """(jobs, total, rows_on_page). Rows whose location is not clearly Indian are dropped."""
     soup = BeautifulSoup(html or "", "html.parser")
-    match = re.search(r"(\d[\d,]*)\s+results?", soup.get_text(" ", strip=True))
+    match = re.search(r"(\d[\d,]*)\s+results?", soup.get_text(" ", strip=True), re.I)  # MetLife: "64 Results"
     total = int(match.group(1).replace(",", "")) if match else None
     articles = soup.select("article.article--result")
     jobs = []
     for article in articles:
-        link = article.select_one("a[href*='JobDetail']")
+        link = article.select_one("a[href*='JobDetail'], a[href*='FolderDetail']")
         if link is None:
             raise ValueError("listing link unavailable")
         url = link["href"]
-        ids = parse_qs(urlsplit(url).query).get("jobId")
-        if urlsplit(url).hostname != host or not ids or not ids[0].isdigit():
+        job_id = _job_id(url)
+        if urlsplit(url).hostname != host or not job_id.isdigit():
             raise ValueError("listing identity unavailable")
         location = ""
         for data in article.select(".article__details__data"):
@@ -52,19 +74,33 @@ def parse_results(html, host):
             if image is not None and "location" in (image.get("alt") or "").lower():
                 paragraph = data.select("p")
                 location = paragraph[-1].get_text(" ", strip=True) if paragraph else ""
+        if not location:
+            span = (article.select_one(".list-item-location")  # MetLife subtitle row
+                    or article.select_one(".article__header__text__subtitle span"))  # Bain
+            location = span.get_text(" ", strip=True) if span else ""
         title = link.get_text(" ", strip=True)
         place = _location(location)
         if not title:
             raise ValueError("listing title unavailable")
         if place:
-            jobs.append({"source_id": ids[0], "title": title, "location": place, "url": url, "description": ""})
+            jobs.append({"source_id": job_id, "title": title, "location": place, "url": url, "description": ""})
     return jobs, total, len(articles)
 
 
 def parse_detail(html):
     """(title, description). Description is the unlabeled content blocks, not the metadata fields."""
     soup = BeautifulSoup(html or "", "html.parser")
-    title = soup.select_one("h2.title--11")
+    title = (soup.select_one("h2.title--11") or soup.select_one("h2.title--banner")
+             or soup.select_one("h2.banner__text__title"))  # Bain
+    # MetLife: metadata and description share one field class; the description is the
+    # content of the section headed "Description and Requirements".
+    for article in soup.select("article.article--details"):
+        heading = article.select_one(".article__header__text__title")
+        content = article.select_one(".article__content")
+        if heading and content and heading.get_text(" ", strip=True).lower().startswith("description"):
+            text = content.get_text("\n", strip=True)
+            if text:
+                return (title.get_text(" ", strip=True) if title else ""), text
     blocks = []
     for field in soup.select(".article__content__view__field"):
         classes = " ".join(field.get("class") or [])
@@ -83,11 +119,14 @@ def fetch(cfg, deadline=None):
     with requests.Session() as session:
         session.headers["User-Agent"] = "Mozilla/5.0"
         offset = 0
+        # Bain's "folder" portal pages with folderRecordsPerPage/folderOffset.
+        records = cfg.get("records_param", "jobRecordsPerPage")
+        offset_name = cfg.get("offset_param", "jobOffset")
         for _ in range(MAX_PAGES):
             if deadline is not None and time.monotonic() >= deadline:
                 errors.append("listing deadline reached")
                 break
-            html = get_text(session, f"{base}/SearchJobs/?{cfg['query']}&jobRecordsPerPage={PER_PAGE}&jobOffset={offset}")
+            html = get_text(session, f"{base}/SearchJobs/?{cfg['query']}&{records}={PER_PAGE}&{offset_name}={offset}")
             if not html:
                 if not jobs:
                     raise RuntimeError(f"Avature {host}: listing unavailable")
@@ -108,7 +147,7 @@ def fetch(cfg, deadline=None):
             for job in fresh:
                 seen.add(job["source_id"])
                 jobs.append(job)
-            if not fresh and rows and all(a in seen for a in re.findall(r"jobId=(\d+)", html)):
+            if not fresh and rows and all(a in seen for a in _listing_ids(html)):
                 errors.append("repeated listing page")
                 break
             offset += rows
@@ -122,7 +161,8 @@ def fetch(cfg, deadline=None):
         if deadline is not None and time.monotonic() >= deadline:
             return ""
         with requests.Session() as session:
-            html = get_text(session, f"{base}/JobDetail?jobId={job['source_id']}")
+            url = job["url"] if cfg.get("detail_from_listing") else f"{base}/JobDetail?jobId={job['source_id']}"
+            html = get_text(session, url)
         title, text = parse_detail(html)
         return text if title.strip() == job["title"].strip() else ""  # never attach another job's text
 
